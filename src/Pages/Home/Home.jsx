@@ -1,31 +1,41 @@
-import React from 'react'
-import './home.css'
-import { Link as Anchor } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import './home.css';
+import axios from 'axios';
+import CardBook from '../../Components/CardBook/CardBook';
 
 export default function Home() {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/book')
+      .then(response => {
+        setBooks(response.data.books); // Suponiendo que response.data contiene los libros
+      })
+      .catch(error => {
+        console.error('Error fetching books:', error);
+      });
+  }, []); // Solo ejecutar una vez al montar el componente
 
   return (
     <div className='home'>
-        <div className="headerHome">
-            <h1>BIBLIOTECA MUNICIPAL DE LA CARLOTA</h1>
-            <Anchor to={'/login'}>Admin</Anchor>
-        </div>
-        <div className="contFiltros">
-            <h3>Buscá tu libro</h3>
-            <input type="text" />
-        </div>
-        <div className="contlibros">
-            <div class="card" style={{width: "95%", height:"auto"}}>
-                <div class="card-body" style={{padding:"15px"}}>
-                    <div className="card-top-body" style={{display:"flex", alignItems:"center", justifyContent:"space-evenly"}}>
-                        <h5 class="card-title">Titulo</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Categoria</h6>
-                    </div>
-                    <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus libero odio blanditiis perspiciatis repellat illum vel similique delectus, iure, praesentium voluptatum cupiditate, qui voluptates fugit molestiae numquam obcaecati assumenda quae?</p>
-                    <a href="#" class="card-link">Link a algun lado</a>
-                </div>
-            </div>
-        </div>
+      <div className="headerHome">
+        <h1>BIBLIOTECA MUNICIPAL DE LA CARLOTA</h1>
+        <a href="/login">Admin</a>
+      </div>
+      <div className="contFiltros">
+        <h3>Buscá tu libro</h3>
+        <input type="text" />
+      </div>
+      <div className="contlibros">
+        {books.map(book => (
+          <CardBook
+            key={book._id}
+            title={book.titulo}
+            category={book.categoria}
+            description={book.descripcion}
+          />
+        ))}
+      </div>
     </div>
-  )
+  );
 }
