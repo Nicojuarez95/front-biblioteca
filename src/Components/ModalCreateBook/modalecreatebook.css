@@ -28,6 +28,11 @@
     align-items: center;
     flex-direction: column;
     padding: 20px;
+    min-width: 300px;
+    width: 50%;
+}
+.mb-3{
+    width: 90%;
 }
 .contBtn{
     display: flex;

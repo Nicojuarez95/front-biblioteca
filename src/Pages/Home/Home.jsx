@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './home.css';
 import axios from 'axios';
 import ModaleCreateBook from '../../Components/ModalCreateBook/ModalCreateBook';
@@ -7,65 +7,91 @@ import CardBook from '../../Components/CardBook/CardBook';
 export default function Home() {
   const [books, setBooks] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isOpen, setIsOpen] = useState(!true);
-  const [open, setOpen] = useState(!true);
+  const [open, setOpen] = useState(false); // Cambiado a false por simplicidad
   const [isClosed, setIsClosed] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const text = useRef("");
 
   useEffect(() => {
-    axios.get('http://localhost:8080/book')
-      .then(response => {
-        setBooks(response.data.books); // Suponiendo que response.data contiene los libros
-      })
-      .catch(error => {
-        console.error('Error fetching books:', error);
-      });
-    
+    fetchBooks(); // Llamar a la función para obtener libros al montar el componente
     // Verificar si hay un token almacenado en el localStorage
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
     }
-  }, []); // Solo ejecutar una vez al montar el componente
-    // Función para cerrar sesión
-    const handleLogout = () => {
-      localStorage.removeItem('token');
-      setIsLoggedIn(false);
-    };
+  }, [isClosed]); // Volver a cargar libros cuando se cierra el modal de creación de libros
 
-    function openSettings() {
-      setOpen(true);
+  // Función para obtener la lista de libros
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/book');
+      setBooks(response.data.books);
+    } catch (error) {
+      console.error('Error fetching books:', error);
     }
-     function closeModal2() {
+  };
+
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+  };
+
+  const openSettings = () => {
+    setOpen(true);
+  };
+
+  const closeModal2 = () => {
     setOpen(false);
     setIsClosed(true);
-  }
+  };
 
+  // Filtrar y ordenar los libros alfabéticamente por título
+  const filteredAndSortedBooks = books
+    .filter((book) => {
+      const normalizedSearchTerm = searchTerm.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const normalizedTitulo = book.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      return normalizedTitulo.includes(normalizedSearchTerm);
+    })
+    .sort((a, b) => a.titulo.localeCompare(b.titulo));
   
+   // Función para eliminar un libro
+   const handleBookDeleted = (deletedBookId) => {
+    setBooks(prevBooks => prevBooks.filter(book => book._id !== deletedBookId));
+  };
 
   return (
     <div className='home'>
       <div className="headerHome">
         <h1>BIBLIOTECA MUNICIPAL DE LA CARLOTA</h1>
         {isLoggedIn && <button onClick={openSettings}>Agregar libro</button>}
-        {open && (
-                  <ModaleCreateBook key={isClosed} onClose={closeModal2} />
-                )}
-        {isLoggedIn && <button onClick={() => handleLogout()}>Cerrar Sesión</button>}
+        {open && <ModaleCreateBook key={isClosed} onClose={() => { closeModal2(); fetchBooks(); }} />} {/* Actualizar libros después de cerrar el modal */}
+        {isLoggedIn && <button onClick={handleLogout}>Cerrar Sesión</button>}
         {!isLoggedIn && <a href="/login">Admin</a>}
       </div>
-      <div className="contFiltros">
-        <h3>Buscá tu libro</h3>
-        <input type="text" />
-      </div>
       <div className="contlibros">
-        {books.map(book => (
-          <CardBook
-            key={book._id}
-            title={book.titulo}
-            category={book.categoria}
-            description={book.descripcion}
-          />
-        ))}
+        <input
+          type="text"
+          ref={text}
+          placeholder="Buscá tu libro..."
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        {filteredAndSortedBooks.length === 0 ? (
+          <p>No se encontraron libros con ese nombre.</p>
+        ) : (
+          filteredAndSortedBooks.map((book) => (
+            <CardBook
+              key={book._id}
+              id={book._id}
+              title={book.titulo}
+              category={book.categoria}
+              description={book.descripcion}
+              isLoggedIn={isLoggedIn} // Pasa el estado isLoggedIn como prop
+              onBookDeleted={handleBookDeleted}
+            />
+          ))
+        )}
       </div>
     </div>
   );
