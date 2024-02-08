@@ -3,7 +3,7 @@ import './cardbook.css';
 
 export default function CardBook({ title, category, description }) {
     return (
-      <div className="card" style={{ width: "95%", height: "auto" }}>
+      <div className="card" style={{ width: "95%", height: "auto", zIndex:"0" }}>
         <div className="card-body" style={{ padding: "15px" }}>
           <div className="card-top-body" style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
             <h5 className="card-title">{title}</h5>
