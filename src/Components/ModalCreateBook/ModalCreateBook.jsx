@@ -21,7 +21,7 @@ export default function ModaleCreateBook({ onClose }){
         axios.post('http://localhost:8080/book/create', formData)
             .then(response => {
                 console.log('Libro creado:', response.data);
-                onClose(); // Cierra el modal después de agregar el libro exitosamente
+                onClose();
             })
             .catch(error => {
                 console.error('Error al crear el libro:', error);
