@@ -42,7 +42,6 @@ export default function CardBook({ id, title, category, description, onBookDelet
     }
   }, [showConfirmation]); // Se ejecuta cuando showConfirmation cambia
 
-  
   return (
     <div className="card" style={{ width: "95%", height: "auto", zIndex:"0" }}>
       <div className="card-body" style={{ padding: "10px" }}>
