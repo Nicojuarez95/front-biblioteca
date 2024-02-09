@@ -7,7 +7,7 @@ import CardBook from '../../Components/CardBook/CardBook';
 export default function Home() {
   const [books, setBooks] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [open, setOpen] = useState(false); // Cambiado a false por simplicidad
+  const [open, setOpen] = useState(false);
   const [isClosed, setIsClosed] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
