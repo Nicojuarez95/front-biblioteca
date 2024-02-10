@@ -3,6 +3,7 @@ import './home.css';
 import axios from 'axios';
 import ModaleCreateBook from '../../Components/ModalCreateBook/ModalCreateBook';
 import CardBook from '../../Components/CardBook/CardBook';
+import logo from "../../Img/logoLC.png"
 
 export default function Home() {
   const [books, setBooks] = useState([]);
@@ -64,19 +65,24 @@ export default function Home() {
   return (
     <div className='home'>
       <div className="headerHome">
+        <img src={logo} alt="" />
         <h1>BIBLIOTECA MUNICIPAL DE LA CARLOTA</h1>
         {isLoggedIn && <button onClick={openSettings}>Agregar libro</button>}
         {open && <ModaleCreateBook key={isClosed} onClose={() => { closeModal2(); fetchBooks(); }} />} {/* Actualizar libros después de cerrar el modal */}
         {isLoggedIn && <button onClick={handleLogout}>Cerrar Sesión</button>}
-        {!isLoggedIn && <a href="/login">Admin</a>}
+        {!isLoggedIn && <a href="/login" className='linkadm'>Admin</a>}
       </div>
       <div className="contlibros">
-        <input
-          type="text"
-          ref={text}
-          placeholder="Buscá tu libro..."
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        <div style={{display:"flex", justifyContent:"space-between", width:"95%"}}>
+          <h2>Catálogo de libros en existencia</h2>
+          <input
+            type="text"
+            ref={text}
+            className='inputSearch'
+            placeholder="Buscá tu libro..."
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
         {filteredAndSortedBooks.length === 0 ? (
           <p>No se encontraron libros con ese nombre.</p>
         ) : (
@@ -87,7 +93,7 @@ export default function Home() {
               title={book.titulo}
               category={book.categoria}
               description={book.descripcion}
-              isLoggedIn={isLoggedIn} // Pasa el estado isLoggedIn como prop
+              isLoggedIn={isLoggedIn}
               onBookDeleted={handleBookDeleted}
             />
           ))

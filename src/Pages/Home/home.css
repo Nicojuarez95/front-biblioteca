@@ -6,11 +6,32 @@
 }
 .headerHome{
     display: flex;
+    background-color: rgb(245, 245, 245);
     justify-content: space-between;
     align-items: center;
-    height: 50px;
+    height: 100px !important;
     padding-left: 18px;
     padding-right: 18px;
+    box-shadow: 0px 0px 3px black;
+}
+.headerHome h1{
+    background-color: transparent;
+    font-size: 35px;
+}
+.headerHome img{
+    width: 50px;
+}
+.headerHome .linkadm{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    background-color: rgb(175, 175, 255);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+.headerHome .linkadm:hover{
+    background-color: rgb(152, 152, 255);
 }
 .contFiltros{
     display: flex;
@@ -29,3 +50,8 @@
     width: 100%;
     align-items: center;
 } 
+.inputSearch{
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid black;
+}
