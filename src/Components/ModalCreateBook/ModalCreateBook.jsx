@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './modalecreatebook.css';
 import axios from 'axios';
+import { LoadStart, LoadRemove } from '../../Components/Loading.jsx'
 
 export default function ModaleCreateBook({ onClose }){
     const [formData, setFormData] = useState({
@@ -18,12 +19,15 @@ export default function ModaleCreateBook({ onClose }){
     };
 
     const handleAddBook = () => {
+        LoadStart()
         axios.post('http://localhost:8080/book/create', formData)
             .then(response => {
                 console.log('Libro creado:', response.data);
+                LoadRemove()
                 onClose();
             })
             .catch(error => {
+                LoadRemove()
                 console.error('Error al crear el libro:', error);
             });
     };

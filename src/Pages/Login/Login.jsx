@@ -2,22 +2,26 @@ import React, { useState } from 'react';
 import { Link as Anchor } from 'react-router-dom';
 import axios from 'axios';
 import './login.css';
+import { LoadStart, LoadRemove } from '../../Components/Loading.jsx'
 
 export default function Login() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
+    LoadStart()
     axios.post('http://localhost:8080/admin/signin', { name, password })
       .then(response => {
         console.log('Respuesta del servidor:', response.data);
         // Guardar el token en el local storage
+        LoadRemove()
         localStorage.setItem('token', response.data.token);
         console.log(response.data.token)
         // Redirigir a la página principal u otra página después del inicio de sesión
         window.location.href = '/'
       })
       .catch(error => {
+        LoadRemove()
         console.error('Error de inicio de sesión:', error);
       });
   };

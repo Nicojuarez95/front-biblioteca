@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import './cardbook.css';
+import { LoadStart, LoadRemove } from '../../Components/Loading.jsx'
 
 export default function CardBook({ id, title, category, description, onBookDeleted, isLoggedIn }) {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -11,13 +12,16 @@ export default function CardBook({ id, title, category, description, onBookDelet
   };
 
   const confirmDelete = () => {
+    LoadStart()
     axios.delete(`http://localhost:8080/book/delete/${id}`)
       .then(response => {
         console.log('Libro eliminado:', response.data);
+        LoadRemove()
         setDeleted(true);
         setShowConfirmation(false);
       })
       .catch(error => {
+        LoadRemove()
         console.error('Error al eliminar el libro:', error);
         setShowConfirmation(false);
       });

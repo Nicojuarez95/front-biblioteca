@@ -33,4 +33,7 @@
     .filtro{
         padding: 3px;
     }
+    .btnDelete{
+        font-size: 8px !important;
+    }
 }

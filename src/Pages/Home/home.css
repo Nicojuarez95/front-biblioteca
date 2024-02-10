@@ -34,6 +34,19 @@
 .headerHome .linkadm:hover{
     background-color: rgb(152, 152, 255);
 }
+.linkadm2{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    background-color: #afafff;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+}
+.linkadm2:hover{
+    background-color: rgb(152, 152, 255);
+}
 .contFiltros{
     display: flex;
     justify-content: center;
@@ -76,6 +89,20 @@
     }
     .inputSearch{
         height: 30px;
+    }
+    .linkadm{
+        width: 50px;
+        height: 30px;
+        font-size: 13px;
+    }
+    .linkadm2{
+        width: 80px;
+        height: 30px;
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 2px;
     }
     
 }

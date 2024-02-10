@@ -44,7 +44,9 @@
     font-weight: 600;
     background-color: #afafff;
     border-radius: 5px;
-    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     cursor: pointer;
 }

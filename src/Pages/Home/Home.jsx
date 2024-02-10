@@ -4,6 +4,7 @@ import axios from 'axios';
 import ModaleCreateBook from '../../Components/ModalCreateBook/ModalCreateBook';
 import CardBook from '../../Components/CardBook/CardBook';
 import logo from "../../Img/logoLC.png"
+import { LoadStart, LoadRemove } from '../../Components/Loading.jsx'
 
 export default function Home() {
   const [books, setBooks] = useState([]);
@@ -25,10 +26,13 @@ export default function Home() {
 
   // Función para obtener la lista de libros
   const fetchBooks = async () => {
+    LoadStart()
     try {
       const response = await axios.get('http://localhost:8080/book');
+      LoadRemove()
       setBooks(response.data.books);
     } catch (error) {
+      LoadRemove()
       console.error('Error fetching books:', error);
     }
   };
@@ -67,9 +71,9 @@ export default function Home() {
       <div className="headerHome">
         <img src={logo} alt="" />
         <h1>BIBLIOTECA MUNICIPAL DE LA CARLOTA</h1>
-        {isLoggedIn && <button onClick={openSettings} className='linkadm'>Agregar libro</button>}
+        {isLoggedIn && <button onClick={openSettings} className='linkadm2'>Agregar libro</button>}
         {open && <ModaleCreateBook key={isClosed} onClose={() => { closeModal2(); fetchBooks(); }} />} {/* Actualizar libros después de cerrar el modal */}
-        {isLoggedIn && <button onClick={handleLogout} className='linkadm'>Cerrar Sesión</button>}
+        {isLoggedIn && <button onClick={handleLogout} className='linkadm2'>Cerrar Sesión</button>}
         {!isLoggedIn && <a href="/login" className='linkadm'>Admin</a>}
       </div>
       <div className="contlibros">
