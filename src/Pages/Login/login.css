@@ -9,3 +9,6 @@
 #body{
     width: 60vw;
 }
+.btnLog:hover{
+    background-color: #a1a1ff !important;
+}

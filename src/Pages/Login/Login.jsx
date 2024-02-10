@@ -45,8 +45,8 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button onClick={handleLogin}>Iniciar Sesión</button>
-      <Anchor to={'/'}>Volver a todos los libros</Anchor>
+      <button onClick={handleLogin} className="btnLog" style={{border:"none", padding:"5px", background:"#afafff", borderRadius:"5px", color:"white"}}>Iniciar Sesión</button>
+      <Anchor to={'/'} style={{textDecoration:"none", color:"black", marginTop:"5%"}}>Volver a todos los libros</Anchor>
     </div>
   );
 }
