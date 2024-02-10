@@ -73,7 +73,7 @@ export default function Home() {
         {!isLoggedIn && <a href="/login" className='linkadm'>Admin</a>}
       </div>
       <div className="contlibros">
-        <div style={{display:"flex", justifyContent:"space-between", width:"95%"}}>
+        <div className="contInp" style={{display:"flex", justifyContent:"space-between", width:"95%"}}>
           <h2>Catálogo de libros en existencia</h2>
           <input
             type="text"

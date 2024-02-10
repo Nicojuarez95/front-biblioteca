@@ -56,3 +56,26 @@
     outline: none;
     border: 1px solid black;
 }
+
+@media screen and (max-width: 600px) {
+    .headerHome{
+        padding: 0;
+        align-items: center;
+    }
+    .headerHome h1{
+        background-color: transparent;
+        font-size: 13px;
+        margin: 0;
+    }
+    .contInp{
+        flex-direction: column;
+    }
+    .contInp h2{
+        font-size: 19px;
+        text-align: center;
+    }
+    .inputSearch{
+        height: 30px;
+    }
+    
+}
