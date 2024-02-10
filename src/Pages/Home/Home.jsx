@@ -67,9 +67,9 @@ export default function Home() {
       <div className="headerHome">
         <img src={logo} alt="" />
         <h1>BIBLIOTECA MUNICIPAL DE LA CARLOTA</h1>
-        {isLoggedIn && <button onClick={openSettings}>Agregar libro</button>}
+        {isLoggedIn && <button onClick={openSettings} className='linkadm'>Agregar libro</button>}
         {open && <ModaleCreateBook key={isClosed} onClose={() => { closeModal2(); fetchBooks(); }} />} {/* Actualizar libros después de cerrar el modal */}
-        {isLoggedIn && <button onClick={handleLogout}>Cerrar Sesión</button>}
+        {isLoggedIn && <button onClick={handleLogout} className='linkadm'>Cerrar Sesión</button>}
         {!isLoggedIn && <a href="/login" className='linkadm'>Admin</a>}
       </div>
       <div className="contlibros">

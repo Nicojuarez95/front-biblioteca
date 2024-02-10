@@ -30,7 +30,7 @@ export default function ModaleCreateBook({ onClose }){
 
     return(
         <section id="modalcreatebook">
-            <div className="contForm">
+            <div className="contForm" style={{borderRadius:"10px"}}>
                 <div className="mb-3">
                     <label htmlFor="titulo" className="form-label">Nombre del libro</label>
                     <input type="text" className="form-control" id="titulo" name="titulo" value={formData.titulo} onChange={handleInputChange}/>
@@ -44,8 +44,8 @@ export default function ModaleCreateBook({ onClose }){
                     <textarea className="form-control" id="descripcion" name="descripcion" value={formData.descripcion} onChange={handleInputChange} rows="3"></textarea>
                 </div>
                 <div className="contBtn">
-                    <button onClick={onClose}>Cancelar</button>
-                    <button onClick={handleAddBook}>Agregar</button>
+                    <button onClick={onClose} className="linkadm">Cancelar</button>
+                    <button onClick={handleAddBook} className="linkadm">Agregar</button>
                 </div>
             </div>
         </section>

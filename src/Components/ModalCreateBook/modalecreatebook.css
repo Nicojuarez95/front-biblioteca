@@ -38,3 +38,16 @@
     justify-content: space-around;
     width: 100%;
 }
+.linkadm{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    background-color: #afafff;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+}
+.linkadm:hover{
+    background-color: rgb(152, 152, 255);
+}
